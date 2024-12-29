@@ -1,0 +1,237 @@
+{
+  "name": "easydocs",
+  "displayName": "easydocs",
+  "description": "",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.96.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [],
+  "main": "./out/extension.js",
+  "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "symbolList",
+          "title": "Symbols",
+          "icon": "media/dep.svg"
+        }
+      ]
+    },
+    "views": {
+      
+      "explorer": [
+        {
+          "id": "symbolList",
+          "name": "Symbol List"
+        },
+        {
+          "id": "nodeDependencies",
+          "name": "Node Dependencies"
+        },
+        {
+          "id": "jsonOutline",
+          "name": "Json Outline",
+          "when": "jsonOutlineEnabled"
+        },
+        {
+          "id": "testView",
+          "name": "Test View"
+        },
+        {
+          "id": "testViewDragAndDrop",
+          "name": "Test View Drag and Drop"
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "extension.toggleSymbol",
+        "title": "Toggle Symbol"
+      },
+      {
+        "command": "extension.createDocs",
+        "title": "Create Documentation"
+      },
+      {
+        "command": "nodeDependencies.refreshEntry",
+        "title": "Node Dependency: Refresh",
+        "icon": {
+          "light": "resources/light/refresh.svg",
+          "dark": "resources/dark/refresh.svg"
+        }
+      },
+      {
+        "command": "nodeDependencies.addEntry",
+        "title": "Node Dependency: Add"
+      },
+      {
+        "command": "nodeDependencies.editEntry",
+        "title": "Node Dependency: Edit",
+        "icon": {
+          "light": "resources/light/edit.svg",
+          "dark": "resources/dark/edit.svg"
+        }
+      },
+      {
+        "command": "nodeDependencies.deleteEntry",
+        "title": "Node Dependency: Delete"
+      },
+      {
+        "command": "ftpExplorer.refresh",
+        "title": "Refresh",
+        "icon": {
+          "light": "resources/light/refresh.svg",
+          "dark": "resources/dark/refresh.svg"
+        }
+      },
+      {
+        "command": "ftpExplorer.openFtpResource",
+        "title": "Open FTP Resource"
+      },
+      {
+        "command": "ftpExplorer.revealResource",
+        "title": "Reveal in FTP View"
+      },
+      {
+        "command": "jsonOutline.refresh",
+        "title": "Refresh",
+        "icon": {
+          "light": "resources/light/refresh.svg",
+          "dark": "resources/dark/refresh.svg"
+        }
+      },
+      {
+        "command": "jsonOutline.refreshNode",
+        "title": "Refresh",
+        "icon": {
+          "light": "resources/light/refresh.svg",
+          "dark": "resources/dark/refresh.svg"
+        }
+      },
+      {
+        "command": "jsonOutline.renameNode",
+        "title": "Rename"
+      },
+      {
+        "command": "fileExplorer.refreshFile",
+        "title": "Refresh",
+        "icon": {
+          "light": "resources/light/refresh.svg",
+          "dark": "resources/dark/refresh.svg"
+        }
+      },
+      {
+        "command": "fileExplorer.openFile",
+        "title": "Open File"
+      },
+      {
+        "command": "testView.reveal",
+        "title": "Test View: Reveal"
+      },
+      {
+        "command": "testView.changeTitle",
+        "title": "Test View: Change Title"
+      }
+    ],
+    "menus": {
+      "commandPalette": [
+        {
+          "command": "ftpExplorer.revealResource"
+        }
+      ],
+      "view/title": [
+        {
+          "command": "nodeDependencies.refreshEntry",
+          "when": "view == nodeDependencies",
+          "group": "navigation"
+        },
+        {
+          "command": "jsonOutline.renameNode",
+          "when": "view == jsonOutline"
+        },
+        {
+          "command": "nodeDependencies.addEntry",
+          "when": "view == nodeDependencies"
+        },
+        {
+          "command": "jsonOutline.refresh",
+          "when": "view == jsonOutline",
+          "group": "navigation"
+        },
+        {
+          "command": "ftpExplorer.refresh",
+          "when": "view == ftpExplorer",
+          "group": "navigation"
+        }
+      ],
+      "view/item/context": [
+        {
+          "command": "nodeDependencies.editEntry",
+          "when": "view == nodeDependencies && viewItem == dependency",
+          "group": "inline"
+        },
+        {
+          "command": "nodeDependencies.deleteEntry",
+          "when": "view == nodeDependencies && viewItem == dependency"
+        },
+        {
+          "command": "jsonOutline.renameNode",
+          "when": "view == jsonOutline"
+        },
+        {
+          "command": "jsonOutline.refreshNode",
+          "when": "view == jsonOutline",
+          "group": "inline"
+        },
+        {
+          "command": "fileExplorer.refreshFile",
+          "when": "view == fileExplorer && viewItem == file",
+          "group": "inline"
+        }
+      ]
+    },
+    "configuration": [
+      {
+        "title": "JSON Outline",
+        "properties": {
+          "jsonOutline.autorefresh": {
+            "type": "boolean",
+            "description": "Auto refresh the JSON outline view when the contents of the json file change.",
+            "default": false
+          }
+        }
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src",
+    "test": "vscode-test"
+  },
+  "devDependencies": {
+    "@types/mkdirp": "^1.0.2",
+    "@types/mocha": "^10.0.10",
+    "@types/node": "20.x",
+    "@types/rimraf": "^3.0.2",
+    "@types/vscode": "^1.96.0",
+    "@typescript-eslint/eslint-plugin": "^8.17.0",
+    "@typescript-eslint/parser": "^8.17.0",
+    "@vscode/test-cli": "^0.0.10",
+    "@vscode/test-electron": "^2.4.1",
+    "eslint": "^9.16.0",
+    "typescript": "^5.7.2"
+  },
+  "dependencies": {
+    "ftp": "^0.3.10",
+    "jsonc-parser": "^3.3.1",
+    "mkdirp": "^0.5.1",
+    "rimraf": "^2.6.2"
+  }
+}
